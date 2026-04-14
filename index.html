@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smartoon Hair Studio</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+    body { background:#fff; color:#333; overflow-x:hidden; }
+
+    header { background:linear-gradient(90deg,#ff69b4,#ff1493); padding:20px; color:white; text-align:center; position:sticky; top:0; z-index:1000; }
+    nav a { margin:0 15px; color:white; text-decoration:none; font-weight:bold; }
+
+    section { padding:60px 20px; text-align:center; }
+
+    .hero { background:linear-gradient(to right,#ffc0cb,#ff69b4); color:white; padding:100px 20px; }
+    .hero h1 { font-size:2.5rem; }
+
+    .btn { display:inline-block; margin-top:20px; padding:12px 25px; background:white; color:#ff1493; border-radius:30px; text-decoration:none; font-weight:bold; transition:0.3s; }
+    .btn:hover { background:#ff1493; color:white; }
+
+    .services, .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+
+    .card {
+      background:#ffe4ec; padding:20px; border-radius:15px;
+      opacity:0; transform:translateY(50px);
+      transition:all 0.6s ease;
+    }
+
+    /* IMAGE ANIMATION */
+    .gallery img {
+      width:100%; height:250px; object-fit:cover;
+      border-radius:15px;
+      opacity:0;
+      transform:translateY(60px) scale(0.8) rotate(3deg);
+      transition:all 0.8s ease;
+    }
+
+    .gallery img.show {
+      opacity:1;
+      transform:translateY(0) scale(1) rotate(0deg);
+    }
+
+    /* HOVER EFFECT */
+    .gallery img:hover {
+      transform:scale(1.05) rotate(1deg);
+    }
+
+    .show { opacity:1 !important; transform:translateY(0) !important; }
+
+    form { max-width:500px; margin:auto; display:flex; flex-direction:column; gap:15px; }
+    input, select, textarea { padding:10px; border-radius:10px; border:1px solid #ccc; }
+
+    footer { background:#ff1493; color:white; text-align:center; padding:20px; }
+
+    .whatsapp {
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:#25D366;
+      color:white;
+      padding:15px;
+      border-radius:50%;
+      font-size:20px;
+      text-decoration:none;
+      box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    @media(max-width:600px){ .hero h1{font-size:1.8rem;} }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>Smartoon Hair Studio</h2>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#booking">Book</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Your Beauty, Our Passion</h1>
+  <p>Professional Hair Styling & Care</p>
+  <a href="#booking" class="btn">Book Now</a>
+</section>
+
+<section id="services">
+  <h2>Our Services</h2>
+  <div class="services">
+    <div class="card">Hair Styling</div>
+    <div class="card">Braiding</div>
+    <div class="card">Wig Installation</div>
+    <div class="card">Hair Treatment</div>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>Our Hairstyles</h2>
+  <div class="gallery">
+    <img src="c:\Users\hp\Downloads\salon.pin.jfif" />
+    <img src="c:\Users\hp\Downloads\download.pin.jfif" />
+    <img src="c:\Users\hp\Downloads\barbshop.pin.jfif" />
+    <img src="c:\Users\hp\Downloads\freshcut.pin.jfif" />
+  </div>
+</section>
+
+<section id="booking">
+  <h2>Book Appointment</h2>
+  <form onsubmit="handleBooking(event)">
+    <input type="text" placeholder="Full Name" required />
+    <input type="tel" placeholder="Phone Number" required />
+    <select required>
+      <option value="">Select Service</option>
+      <option>Hair Styling</option>
+      <option>Braiding</option>
+      <option>Wig Installation</option>
+      <option>Treatment</option>
+    </select>
+    <input type="date" required />
+    <textarea placeholder="Additional Notes"></textarea>
+    <button class="btn" type="submit">Submit Booking</button>
+  </form>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p>Phone: +2349065372806</p>
+  <p>Email: ayomidebanire1@gmail.com</p>
+</section>
+
+<footer>
+  <p>© 2026 Smartoon Hair Studio</p>
+</footer>
+
+<a href="https://wa.me/2348000000000" class="whatsapp">💬</a>
+
+<script>
+  const elements = document.querySelectorAll('.card, .gallery img');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        setTimeout(()=>{
+          entry.target.classList.add('show');
+        }, entry.target.dataset.delay || 0);
+      }
+    });
+  },{ threshold:0.2 });
+
+  elements.forEach((el, index) => {
+    el.dataset.delay = index * 150; // stagger animation
+    observer.observe(el);
+  });
+
+  function handleBooking(e){
+    e.preventDefault();
+    alert('Booking submitted! We will contact you shortly.');
+  }
+</script>
+
+</body>
+</html>
